@@ -48,6 +48,11 @@
         <item name="colorSecondary">@color/termux_settings_secondary</item>
         <item name="colorSecondaryVariant">@color/termux_settings_secondary_variant</item>
         <item name="colorOnSecondary">@color/termux_settings_on_secondary</item>
+
+        <!-- Material You control colors. -->
+        <item name="colorAccent">@color/termux_settings_secondary</item>
+        <item name="colorControlActivated">@color/termux_settings_secondary</item>
+        <item name="colorControlNormal">@color/termux_settings_secondary_variant</item>
     </style>
 
 </resources>
