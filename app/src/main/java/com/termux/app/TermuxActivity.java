@@ -330,6 +330,11 @@ if (mTermuxBackgroundManager != null) {
         if (mTermuxTerminalViewClient != null)
             mTermuxTerminalViewClient.onResume();
 
+        // Restore terminal background when the activity resumes.
+        if (mTermuxBackgroundManager != null) {
+            mTermuxBackgroundManager.updateBackground(false);
+        }
+
         // Check if a crash happened on last run of the app or if a plugin crashed and show a
         // notification with the crash details if it did
         TermuxCrashUtils.notifyAppCrashFromCrashLogFile(this, LOG_TAG);
