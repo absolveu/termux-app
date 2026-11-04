@@ -3,4 +3,8 @@
     <string name="action_font_and_color">Fonte e cores</string>
     <string name="action_set_background_image">Definir imagem de fundo</string>
     <string name="action_remove_background_image">Remover imagem de fundo</string>
+
+    <string name="error_background_image_loading_from_gallery_failed">Falha ao carregar a imagem de fundo da galeria.</string>
+    <string name="error_background_image_loading_failed">Falha ao carregar a imagem de fundo.</string>
+    <string name="title_restore_background_image">Deseja restaurar a imagem de fundo anterior?</string>
 </resources>
