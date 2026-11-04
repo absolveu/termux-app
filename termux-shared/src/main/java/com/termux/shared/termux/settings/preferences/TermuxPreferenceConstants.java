@@ -169,6 +169,12 @@ public final class TermuxPreferenceConstants {
         public static final boolean DEFAULT_VALUE_TERMINAL_VIEW_KEY_LOGGING_ENABLED = false;
 
         /**
+         * Defines the key for whether terminal background image is enabled or not.
+         */
+        public static final String KEY_BACKGROUND_IMAGE_ENABLED = "background_image_enabled";
+        public static final boolean DEFAULT_VALUE_BACKGROUND_IMAGE_ENABLED = false;
+
+        /**
          * Defines the key for whether flashes and notifications for plugin errors are enabled or not.
          */
         public static final String KEY_PLUGIN_ERROR_NOTIFICATIONS_ENABLED = "plugin_error_notifications_enabled";

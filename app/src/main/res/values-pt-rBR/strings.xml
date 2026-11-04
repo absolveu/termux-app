@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_font_and_color">Fonte e cores</string>
+    <string name="action_set_background_image">Definir imagem de fundo</string>
+    <string name="action_remove_background_image">Remover imagem de fundo</string>
+</resources>
