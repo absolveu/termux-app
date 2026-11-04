@@ -7,9 +7,12 @@ import androidx.annotation.Keep;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.SeekBarPreference;
 
 import com.termux.R;
+import com.termux.app.TermuxActivity;
 import com.termux.shared.termux.settings.preferences.TermuxAppSharedPreferences;
+import com.termux.shared.termux.settings.properties.TermuxAppSharedProperties;
 
 @Keep
 public class TerminalViewPreferencesFragment extends PreferenceFragmentCompat {
@@ -23,8 +26,24 @@ public class TerminalViewPreferencesFragment extends PreferenceFragmentCompat {
         preferenceManager.setPreferenceDataStore(TerminalViewPreferencesDataStore.getInstance(context));
 
         setPreferencesFromResource(R.xml.termux_terminal_view_preferences, rootKey);
-    }
 
+        SeekBarPreference opacityPreference = findPreference("background_overlay_opacity");
+        if (opacityPreference != null) {
+            opacityPreference.setSummary(getString(
+                R.string.termux_terminal_view_background_overlay_opacity_summary,
+                opacityPreference.getValue()
+            ));
+
+            opacityPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                int value = (Integer) newValue;
+                preference.setSummary(getString(
+                    R.string.termux_terminal_view_background_overlay_opacity_summary,
+                    value
+                ));
+                return true;
+            });
+        }
+    }
 }
 
 class TerminalViewPreferencesDataStore extends PreferenceDataStore {
@@ -46,16 +65,13 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
         return mInstance;
     }
 
-
-
     @Override
     public void putBoolean(String key, boolean value) {
-        if (mPreferences == null) return;
-        if (key == null) return;
+        if (mPreferences == null || key == null) return;
 
         switch (key) {
             case "terminal_margin_adjustment":
-                    mPreferences.setTerminalMarginAdjustment(value);
+                mPreferences.setTerminalMarginAdjustment(value);
                 break;
             default:
                 break;
@@ -64,14 +80,41 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
 
     @Override
     public boolean getBoolean(String key, boolean defValue) {
-        if (mPreferences == null) return false;
+        if (mPreferences == null) return defValue;
 
         switch (key) {
             case "terminal_margin_adjustment":
                 return mPreferences.isTerminalMarginAdjustmentEnabled();
             default:
-                return false;
+                return defValue;
         }
     }
 
+    @Override
+    public void putInt(String key, int value) {
+        if (mPreferences == null || key == null) return;
+
+        if ("background_overlay_opacity".equals(key)) {
+            mPreferences.setBackgroundOverlayOpacity(Math.max(0, Math.min(100, value)));
+            TermuxActivity.updateTermuxActivityStyling(mContext, false);
+        }
+    }
+
+    @Override
+    public int getInt(String key, int defValue) {
+        if (mPreferences == null || key == null) return defValue;
+
+        if ("background_overlay_opacity".equals(key)) {
+            int value = mPreferences.getBackgroundOverlayOpacity();
+            if (value >= 0) return Math.min(100, value);
+
+            TermuxAppSharedProperties properties = TermuxAppSharedProperties.getProperties();
+            if (properties == null) return defValue;
+
+            int alpha = (properties.getBackgroundOverlayColor() >>> 24) & 0xFF;
+            return (alpha * 100 + 127) / 255;
+        }
+
+        return defValue;
+    }
 }

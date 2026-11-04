@@ -209,4 +209,6 @@
     <!-- Donate Preference -->
     <string name="donate_preference_title">Donate</string>
 
+    <string name="termux_terminal_view_background_overlay_opacity_title">Wallpaper dimming intensity</string>
+    <string name="termux_terminal_view_background_overlay_opacity_summary">%1$d%% — Adjust how much the wallpaper is darkened.</string>
 </resources>

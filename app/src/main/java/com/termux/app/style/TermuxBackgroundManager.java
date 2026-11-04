@@ -292,7 +292,15 @@ public class TermuxBackgroundManager {
             executor.execute(() -> {
                 if (isImageFilesExist(mActivity, true)) {
                     Drawable drawable = ImageUtils.getDrawable(imagePath);
-                    ImageUtils.addOverlay(drawable, mActivity.getProperties().getBackgroundOverlayColor());
+                    int overlayColor = mActivity.getProperties().getBackgroundOverlayColor();
+                    int opacity = mActivity.getPreferences().getBackgroundOverlayOpacity();
+
+                    if (opacity >= 0) {
+                        int alpha = (opacity * 255 + 50) / 100;
+                        overlayColor = (overlayColor & 0x00FFFFFF) | (alpha << 24);
+                    }
+
+                    ImageUtils.addOverlay(drawable, overlayColor);
 
                     handler.post(() -> mActivity.getWindow().getDecorView().setBackground(drawable));
                 } else {

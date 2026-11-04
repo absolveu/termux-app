@@ -7,4 +7,6 @@
     <string name="error_background_image_loading_from_gallery_failed">Falha ao carregar a imagem de fundo da galeria.</string>
     <string name="error_background_image_loading_failed">Falha ao carregar a imagem de fundo.</string>
     <string name="title_restore_background_image">Deseja restaurar a imagem de fundo anterior?</string>
+    <string name="termux_terminal_view_background_overlay_opacity_title">Intensidade do escurecimento do papel de parede</string>
+    <string name="termux_terminal_view_background_overlay_opacity_summary">%1$d%% — Ajuste o escurecimento do papel de parede.</string>
 </resources>

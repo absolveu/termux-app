@@ -334,6 +334,10 @@ if (mTermuxBackgroundManager != null) {
         // notification with the crash details if it did
         TermuxCrashUtils.notifyAppCrashFromCrashLogFile(this, LOG_TAG);
 
+        if (mTermuxBackgroundManager != null) {
+            mTermuxBackgroundManager.updateBackground(true);
+        }
+
         mIsOnResumeAfterOnCreate = false;
     }
 

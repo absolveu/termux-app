@@ -1,7 +1,7 @@
 package com.termux.shared.termux.settings.preferences;
 
 /*
- * Version: v0.16.0
+ * Version: v0.17.0
  *
  * Changelog
  *
@@ -69,6 +69,9 @@ package com.termux.shared.termux.settings.preferences;
  * - 0.16.0 (2022-06-11)
  *      - Added following to `TERMUX_APP`:
  *          `KEY_APP_SHELL_NUMBER_SINCE_BOOT` and `KEY_TERMINAL_SESSION_NUMBER_SINCE_BOOT`.
+ *
+ * - 0.17.0 (2026-11-04)
+ *      - Added background overlay opacity preference to `TERMUX_APP`.
  */
 
 import com.termux.shared.shell.command.ExecutionCommand;
@@ -173,6 +176,13 @@ public final class TermuxPreferenceConstants {
          */
         public static final String KEY_BACKGROUND_IMAGE_ENABLED = "background_image_enabled";
         public static final boolean DEFAULT_VALUE_BACKGROUND_IMAGE_ENABLED = false;
+
+        /**
+         * Defines the key for custom terminal background overlay opacity.
+         * A value of -1 means that the opacity from termux.properties should be used.
+         */
+        public static final String KEY_BACKGROUND_OVERLAY_OPACITY = "background_overlay_opacity";
+        public static final int DEFAULT_BACKGROUND_OVERLAY_OPACITY = -1;
 
         /**
          * Defines the key for whether flashes and notifications for plugin errors are enabled or not.

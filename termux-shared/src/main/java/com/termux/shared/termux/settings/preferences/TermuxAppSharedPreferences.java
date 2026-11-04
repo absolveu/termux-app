@@ -242,6 +242,27 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
         SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_BACKGROUND_IMAGE_ENABLED, value, false);
     }
 
+    /**
+     * Get custom terminal background overlay opacity.
+     *
+     * @return The opacity percentage, or -1 to use termux.properties.
+     */
+    public int getBackgroundOverlayOpacity() {
+        return SharedPreferenceUtils.getInt(mSharedPreferences,
+            TERMUX_APP.KEY_BACKGROUND_OVERLAY_OPACITY,
+            TERMUX_APP.DEFAULT_BACKGROUND_OVERLAY_OPACITY);
+    }
+
+    /**
+     * Set custom terminal background overlay opacity.
+     *
+     * @param value The opacity percentage, or -1 to use termux.properties.
+     */
+    public void setBackgroundOverlayOpacity(int value) {
+        SharedPreferenceUtils.setInt(mSharedPreferences,
+            TERMUX_APP.KEY_BACKGROUND_OVERLAY_OPACITY, value, false);
+    }
+
 
 
     public boolean arePluginErrorNotificationsEnabled(boolean readFromFile) {
