@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="termux_settings_primary">@android:color/system_accent1_600</color>
+    <color name="termux_settings_primary_variant">@android:color/system_accent1_700</color>
+    <color name="termux_settings_on_primary">@android:color/system_accent1_0</color>
+    <color name="termux_settings_secondary">@android:color/system_accent2_600</color>
+    <color name="termux_settings_secondary_variant">@android:color/system_accent2_700</color>
+    <color name="termux_settings_on_secondary">@android:color/system_accent2_0</color>
+</resources>
