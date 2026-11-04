@@ -239,7 +239,7 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
     }
 
     public void setBackgroundImageEnabled(boolean value) {
-        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_BACKGROUND_IMAGE_ENABLED, value, false);
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_BACKGROUND_IMAGE_ENABLED, value, true);
     }
 
 
