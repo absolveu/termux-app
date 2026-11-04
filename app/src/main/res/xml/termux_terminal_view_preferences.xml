@@ -14,8 +14,8 @@
             app:key="background_overlay_opacity"
             app:title="@string/termux_terminal_view_background_overlay_opacity_title"
             app:summary="@string/termux_terminal_view_background_overlay_opacity_summary"
-            app:min="0"
-            app:max="100"
+            android:min="0"
+            android:max="100"
             app:defaultValue="35"
             app:showSeekBarValue="true" />
 
