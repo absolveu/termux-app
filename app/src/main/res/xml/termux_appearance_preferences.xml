@@ -14,4 +14,24 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:key="blur"
+        app:title="@string/termux_appearance_blur_header">
+
+        <SwitchPreferenceCompat
+            app:key="extrakeys_blur_enabled"
+            app:defaultValue="false"
+            app:summaryOff="@string/termux_extrakeys_blur_enabled_off"
+            app:summaryOn="@string/termux_extrakeys_blur_enabled_on"
+            app:title="@string/termux_extrakeys_blur_enabled_title" />
+
+        <SwitchPreferenceCompat
+            app:key="sessions_blur_enabled"
+            app:defaultValue="false"
+            app:summaryOff="@string/termux_sessions_blur_enabled_off"
+            app:summaryOn="@string/termux_sessions_blur_enabled_on"
+            app:title="@string/termux_sessions_blur_enabled_title" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

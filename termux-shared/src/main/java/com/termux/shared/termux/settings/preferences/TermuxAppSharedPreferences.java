@@ -252,6 +252,26 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
             TERMUX_APP.KEY_MONET_BACKGROUND_ENABLED, value, false);
     }
 
+    public boolean isExtraKeysBlurEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_EXTRAKEYS_BLUR_ENABLED, TERMUX_APP.DEFAULT_VALUE_EXTRAKEYS_BLUR_ENABLED);
+    }
+
+    public void setExtraKeysBlurEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_EXTRAKEYS_BLUR_ENABLED, value, false);
+    }
+
+    public boolean isSessionsBlurEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_SESSIONS_BLUR_ENABLED, TERMUX_APP.DEFAULT_VALUE_SESSIONS_BLUR_ENABLED);
+    }
+
+    public void setSessionsBlurEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_SESSIONS_BLUR_ENABLED, value, false);
+    }
+
     /**
      * Get custom terminal background overlay opacity.
      *

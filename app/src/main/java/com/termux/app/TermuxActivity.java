@@ -311,6 +311,8 @@ if (mTermuxBackgroundManager != null) {
 }
 
         configureMonetBackground();
+        configureSessionsBlur();
+        configureExtraKeysBackground();
 
         if (mPreferences.isTerminalMarginAdjustmentEnabled())
             addTermuxActivityRootViewGlobalLayoutListener();
@@ -341,6 +343,8 @@ if (mTermuxBackgroundManager != null) {
         }
 
         configureMonetBackground();
+        configureSessionsBlur();
+        configureExtraKeysBackground();
 
         mIsOnResumeAfterOnCreate = false;
     }
@@ -351,6 +355,41 @@ if (mTermuxBackgroundManager != null) {
             monetBackground.setVisibility(
                 mPreferences.isMonetBackgroundEnabled() ? View.VISIBLE : View.GONE);
         }
+    }
+
+    private void configureSessionsBlur() {
+        configureBackgroundBlur(
+            R.id.sessions_backgroundblur,
+            R.id.sessions_background,
+            mPreferences.isSessionsBlurEnabled(),
+            0.5f
+        );
+    }
+
+    private void configureBackgroundBlur(int blurViewId, int backgroundViewId,
+                                         boolean enabled, float alphaWhenBlurred) {
+        View blurView = findViewById(blurViewId);
+        View backgroundView = findViewById(backgroundViewId);
+
+        if (blurView != null)
+            blurView.setVisibility(enabled ? View.VISIBLE : View.GONE);
+
+        if (backgroundView != null)
+            backgroundView.setAlpha(enabled ? alphaWhenBlurred : 1.0f);
+    }
+
+    private void configureExtraKeysBackground() {
+        View background = findViewById(R.id.extrakeys_background);
+        View blur = findViewById(R.id.extrakeys_backgroundblur);
+        if (background == null || blur == null || mPreferences == null)
+            return;
+
+        boolean showToolbar = mPreferences.shouldShowTerminalToolbar();
+        boolean blurEnabled = mPreferences.isExtraKeysBlurEnabled();
+
+        background.setVisibility(showToolbar ? View.VISIBLE : View.GONE);
+        blur.setVisibility(showToolbar && blurEnabled ? View.VISIBLE : View.GONE);
+        background.setAlpha(blurEnabled ? 0.80f : 1.0f);
     }
 
     @Override
@@ -571,6 +610,19 @@ if (mTermuxBackgroundManager != null) {
             (mTermuxTerminalExtraKeys.getExtraKeysInfo() == null ? 0 : mTermuxTerminalExtraKeys.getExtraKeysInfo().getMatrix().length) *
             mProperties.getTerminalToolbarHeightScaleFactor());
         terminalToolbarViewPager.setLayoutParams(layoutParams);
+
+        View extraKeysBackground = findViewById(R.id.extrakeys_background);
+        View extraKeysBlur = findViewById(R.id.extrakeys_backgroundblur);
+        if (extraKeysBackground != null) {
+            ViewGroup.LayoutParams backgroundParams = extraKeysBackground.getLayoutParams();
+            backgroundParams.height = layoutParams.height;
+            extraKeysBackground.setLayoutParams(backgroundParams);
+        }
+        if (extraKeysBlur != null) {
+            ViewGroup.LayoutParams blurParams = extraKeysBlur.getLayoutParams();
+            blurParams.height = layoutParams.height;
+            extraKeysBlur.setLayoutParams(blurParams);
+        }
     }
 
     public void toggleTerminalToolbar() {
@@ -580,6 +632,7 @@ if (mTermuxBackgroundManager != null) {
         final boolean showNow = mPreferences.toogleShowTerminalToolbar();
         Logger.showToast(this, (showNow ? getString(R.string.msg_enabling_terminal_toolbar) : getString(R.string.msg_disabling_terminal_toolbar)), true);
         terminalToolbarViewPager.setVisibility(showNow ? View.VISIBLE : View.GONE);
+        configureExtraKeysBackground();
         if (showNow && isTerminalToolbarTextInputViewSelected()) {
             // Focus the text input view if just revealed.
             findViewById(R.id.terminal_toolbar_text_input).requestFocus();

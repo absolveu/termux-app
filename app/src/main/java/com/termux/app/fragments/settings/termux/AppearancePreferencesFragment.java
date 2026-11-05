@@ -49,6 +49,10 @@ class AppearancePreferencesDataStore extends PreferenceDataStore {
 
         if ("monet_background_enabled".equals(key)) {
             mPreferences.setMonetBackgroundEnabled(value);
+        } else if ("extrakeys_blur_enabled".equals(key)) {
+            mPreferences.setExtraKeysBlurEnabled(value);
+        } else if ("sessions_blur_enabled".equals(key)) {
+            mPreferences.setSessionsBlurEnabled(value);
         }
     }
 
@@ -58,6 +62,10 @@ class AppearancePreferencesDataStore extends PreferenceDataStore {
 
         if ("monet_background_enabled".equals(key)) {
             return mPreferences.isMonetBackgroundEnabled();
+        } else if ("extrakeys_blur_enabled".equals(key)) {
+            return mPreferences.isExtraKeysBlurEnabled();
+        } else if ("sessions_blur_enabled".equals(key)) {
+            return mPreferences.isSessionsBlurEnabled();
         }
 
         return defValue;

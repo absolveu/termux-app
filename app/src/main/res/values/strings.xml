@@ -223,4 +223,11 @@
     <string name="termux_monet_background_enabled_title">Monet background</string>
     <string name="termux_monet_background_enabled_off">The Monet background behind the terminal is disabled.</string>
     <string name="termux_monet_background_enabled_on">The Monet background behind the terminal is enabled.</string>
+    <string name="termux_appearance_blur_header">Background blur</string>
+    <string name="termux_extrakeys_blur_enabled_title">Extra Keys background blur</string>
+    <string name="termux_extrakeys_blur_enabled_off">Show a solid background behind Extra Keys.</string>
+    <string name="termux_extrakeys_blur_enabled_on">Blur the background behind Extra Keys.</string>
+    <string name="termux_sessions_blur_enabled_title">Sessions menu background blur</string>
+    <string name="termux_sessions_blur_enabled_off">Show a solid background behind the sessions menu.</string>
+    <string name="termux_sessions_blur_enabled_on">Blur the background behind the sessions menu.</string>
 </resources>

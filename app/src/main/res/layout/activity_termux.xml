@@ -39,17 +39,34 @@
                 android:scrollbars="vertical"
                 tools:ignore="UnusedAttribute" />
 
-            <LinearLayout
-                android:id="@+id/left_drawer"
+            <RelativeLayout
                 android:layout_width="240dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:choiceMode="singleChoice"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"
-                android:descendantFocusability="blocksDescendants"
-                android:orientation="vertical"
-                android:background="?attr/termuxActivityDrawerBackground">
+                android:layout_gravity="start">
+
+                <com.github.mmin18.widget.RealtimeBlurView
+                    android:id="@+id/sessions_backgroundblur"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:realtimeBlurRadius="10dp"
+                    app:realtimeOverlayColor="@android:color/transparent" />
+
+                <View
+                    android:id="@+id/sessions_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background_accent" />
+
+                <LinearLayout
+                    android:id="@+id/left_drawer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:choiceMode="singleChoice"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="0dp"
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical"
+                    android:background="@android:color/transparent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,16 +113,32 @@
                         android:layout_weight="1"
                         android:text="@string/action_new_session" />
                 </LinearLayout>
-            </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
 
         </androidx.drawerlayout.widget.DrawerLayout>
+
+        <com.github.mmin18.widget.RealtimeBlurView
+            android:id="@+id/extrakeys_backgroundblur"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            android:layout_alignParentBottom="true"
+            app:realtimeBlurRadius="10dp"
+            app:realtimeOverlayColor="@android:color/transparent" />
+
+        <View
+            android:id="@+id/extrakeys_background"
+            android:layout_width="match_parent"
+            android:layout_height="37.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_accent" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/terminal_toolbar_view_pager"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="37.5dp"
-            android:background="@color/black"
+            android:background="@android:color/transparent"
             android:layout_alignParentBottom="true" />
 
     </RelativeLayout>

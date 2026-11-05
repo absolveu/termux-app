@@ -21,4 +21,11 @@
     <string name="termux_monet_background_enabled_title">Fundo Monet</string>
     <string name="termux_monet_background_enabled_off">O fundo Monet atrás do terminal está desativado.</string>
     <string name="termux_monet_background_enabled_on">O fundo Monet atrás do terminal está ativado.</string>
+    <string name="termux_appearance_blur_header">Desfoque do fundo</string>
+    <string name="termux_extrakeys_blur_enabled_title">Desfoque do fundo das Extra Keys</string>
+    <string name="termux_extrakeys_blur_enabled_off">Exibe um fundo sólido atrás da barra Extra Keys.</string>
+    <string name="termux_extrakeys_blur_enabled_on">Aplica desfoque ao fundo da barra Extra Keys.</string>
+    <string name="termux_sessions_blur_enabled_title">Desfoque do fundo do menu de sessões</string>
+    <string name="termux_sessions_blur_enabled_off">Exibe um fundo sólido atrás do menu de sessões.</string>
+    <string name="termux_sessions_blur_enabled_on">Aplica desfoque ao fundo do menu de sessões.</string>
 </resources>
