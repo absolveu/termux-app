@@ -9,6 +9,8 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
@@ -85,18 +87,7 @@ public class TermuxBackgroundManager {
                             return;
                         }
 
-                        ImageUtils.compressAndSaveBitmap(bitmap, TermuxConstants.TERMUX_BACKGROUND_IMAGE_PATH);
-                        boolean success = generateImageFiles(mActivity, bitmap);
-
-                        if (success) {
-                            notifyBackgroundUpdated(true);
-                            Logger.logInfo(LOG_TAG, "Image received successfully from the gallery.");
-                            Logger.logDebug(LOG_TAG, "Storing background original image to " + TermuxConstants.TERMUX_BACKGROUND_IMAGE_PATH);
-                            Logger.logDebug(LOG_TAG, "Storing background portrait image to " + TermuxConstants.TERMUX_BACKGROUND_IMAGE_PORTRAIT_PATH);
-                            Logger.logDebug(LOG_TAG, "Storing background landscape image to " + TermuxConstants.TERMUX_BACKGROUND_IMAGE_LANDSCAPE_PATH);
-                        } else {
-                            Logger.logErrorAndShowToast(mActivity, LOG_TAG, mActivity.getString(R.string.error_background_image_loading_from_gallery_failed));
-                        }
+                        handler.post(() -> showImagePreview(bitmap));
                     });
                 } catch (Exception e) {
                     Logger.logStackTraceWithMessage(LOG_TAG, "Failed to load image", e);
@@ -104,6 +95,59 @@ public class TermuxBackgroundManager {
                 }
             }
         });
+    }
+
+    /**
+     * Show a preview before replacing the current background image.
+     */
+    private void showImagePreview(Bitmap bitmap) {
+        if (mActivity.isFinishing() || mActivity.isDestroyed()) return;
+
+        ImageView preview = new ImageView(mActivity);
+        int height = (int) (320 * mActivity.getResources().getDisplayMetrics().density);
+
+        preview.setLayoutParams(new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, height
+        ));
+        preview.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        preview.setImageBitmap(bitmap);
+
+        new AlertDialog.Builder(mActivity)
+            .setTitle(R.string.title_background_image_preview)
+            .setView(preview)
+            .setPositiveButton(R.string.action_apply_background_image,
+                (dialog, which) -> applyBackgroundImage(bitmap))
+            .setNegativeButton(com.termux.shared.R.string.action_cancel, null)
+            .show();
+    }
+
+    /**
+     * Save and apply the image after the user confirms the preview.
+     */
+    private void applyBackgroundImage(Bitmap bitmap) {
+        try {
+            executor.execute(() -> {
+                ImageUtils.compressAndSaveBitmap(
+                    bitmap, TermuxConstants.TERMUX_BACKGROUND_IMAGE_PATH
+                );
+                boolean success = generateImageFiles(mActivity, bitmap);
+
+                if (success) {
+                    notifyBackgroundUpdated(true);
+                    Logger.logInfo(LOG_TAG, "Image received successfully from the gallery.");
+                    Logger.logDebug(LOG_TAG, "Storing background original image to " + TermuxConstants.TERMUX_BACKGROUND_IMAGE_PATH);
+                    Logger.logDebug(LOG_TAG, "Storing background portrait image to " + TermuxConstants.TERMUX_BACKGROUND_IMAGE_PORTRAIT_PATH);
+                    Logger.logDebug(LOG_TAG, "Storing background landscape image to " + TermuxConstants.TERMUX_BACKGROUND_IMAGE_LANDSCAPE_PATH);
+                } else {
+                    Logger.logErrorAndShowToast(mActivity, LOG_TAG,
+                        mActivity.getString(R.string.error_background_image_loading_from_gallery_failed));
+                }
+            });
+        } catch (Exception e) {
+            Logger.logStackTraceWithMessage(LOG_TAG, "Failed to save background image", e);
+            Logger.showToast(mActivity,
+                mActivity.getString(R.string.error_background_image_loading_from_gallery_failed), true);
+        }
     }
 
     /**

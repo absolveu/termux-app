@@ -11,4 +11,6 @@
     <string name="termux_terminal_view_background_overlay_opacity_summary">%1$d%% — Ajuste o escurecimento do papel de parede.</string>
     <string name="termux_terminal_view_background_overlay_opacity_restore_title">Restaurar opacidade padrão</string>
     <string name="termux_terminal_view_background_overlay_opacity_restore_summary">Usar a opacidade definida em termux.properties.</string>
+    <string name="title_background_image_preview">Prévia do papel de parede</string>
+    <string name="action_apply_background_image">Aplicar</string>
 </resources>

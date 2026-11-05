@@ -213,4 +213,6 @@
     <string name="termux_terminal_view_background_overlay_opacity_summary">%1$d%% — Adjust how much the wallpaper is darkened.</string>
     <string name="termux_terminal_view_background_overlay_opacity_restore_title">Restore default opacity</string>
     <string name="termux_terminal_view_background_overlay_opacity_restore_summary">Use the opacity defined in termux.properties.</string>
+    <string name="title_background_image_preview">Wallpaper preview</string>
+    <string name="action_apply_background_image">Apply</string>
 </resources>
