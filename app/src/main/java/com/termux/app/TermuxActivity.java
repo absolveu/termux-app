@@ -310,6 +310,8 @@ if (mTermuxBackgroundManager != null) {
     mTermuxBackgroundManager.updateBackground(false);
 }
 
+        configureMonetBackground();
+
         if (mPreferences.isTerminalMarginAdjustmentEnabled())
             addTermuxActivityRootViewGlobalLayoutListener();
 
@@ -338,7 +340,17 @@ if (mTermuxBackgroundManager != null) {
             mTermuxBackgroundManager.updateBackground(true);
         }
 
+        configureMonetBackground();
+
         mIsOnResumeAfterOnCreate = false;
+    }
+
+    private void configureMonetBackground() {
+        View monetBackground = findViewById(R.id.terminal_monetbackground);
+        if (monetBackground != null && mPreferences != null) {
+            monetBackground.setVisibility(
+                mPreferences.isMonetBackgroundEnabled() ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override

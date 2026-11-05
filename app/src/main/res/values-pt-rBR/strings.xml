@@ -15,4 +15,10 @@
     <string name="action_apply_background_image">Aplicar</string>
     <string name="termux_terminal_view_terminal_header">Terminal</string>
     <string name="termux_terminal_view_wallpaper_header">Papel de parede</string>
+    <string name="termux_appearance_preferences_title">Aparência</string>
+    <string name="termux_appearance_preferences_summary">Personalize o fundo e a aparência do terminal.</string>
+    <string name="termux_appearance_background_header">Plano de fundo</string>
+    <string name="termux_monet_background_enabled_title">Fundo Monet</string>
+    <string name="termux_monet_background_enabled_off">O fundo Monet atrás do terminal está desativado.</string>
+    <string name="termux_monet_background_enabled_on">O fundo Monet atrás do terminal está ativado.</string>
 </resources>

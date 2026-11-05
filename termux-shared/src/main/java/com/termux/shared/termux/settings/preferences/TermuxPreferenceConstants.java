@@ -178,6 +178,12 @@ public final class TermuxPreferenceConstants {
         public static final boolean DEFAULT_VALUE_BACKGROUND_IMAGE_ENABLED = false;
 
         /**
+         * Defines the key for whether Monet background is enabled or not.
+         */
+        public static final String KEY_MONET_BACKGROUND_ENABLED = "monet_background_enabled";
+        public static final boolean DEFAULT_VALUE_MONET_BACKGROUND_ENABLED = false;
+
+        /**
          * Defines the key for custom terminal background overlay opacity.
          * A value of -1 means that the opacity from termux.properties should be used.
          */

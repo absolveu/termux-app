@@ -217,4 +217,10 @@
     <string name="action_apply_background_image">Apply</string>
     <string name="termux_terminal_view_terminal_header">Terminal</string>
     <string name="termux_terminal_view_wallpaper_header">Wallpaper</string>
+    <string name="termux_appearance_preferences_title">Appearance</string>
+    <string name="termux_appearance_preferences_summary">Customize the terminal background and appearance.</string>
+    <string name="termux_appearance_background_header">Background</string>
+    <string name="termux_monet_background_enabled_title">Monet background</string>
+    <string name="termux_monet_background_enabled_off">The Monet background behind the terminal is disabled.</string>
+    <string name="termux_monet_background_enabled_on">The Monet background behind the terminal is enabled.</string>
 </resources>
