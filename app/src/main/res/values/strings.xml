@@ -215,4 +215,6 @@
     <string name="termux_terminal_view_background_overlay_opacity_restore_summary">Use the opacity defined in termux.properties.</string>
     <string name="title_background_image_preview">Wallpaper preview</string>
     <string name="action_apply_background_image">Apply</string>
+    <string name="termux_terminal_view_terminal_header">Terminal</string>
+    <string name="termux_terminal_view_wallpaper_header">Wallpaper</string>
 </resources>

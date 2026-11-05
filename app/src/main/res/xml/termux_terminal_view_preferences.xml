@@ -1,14 +1,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        app:key="view"
-        app:title="@string/termux_terminal_view_view_header">
+        app:key="terminal_settings"
+        app:title="@string/termux_terminal_view_terminal_header">
 
         <SwitchPreferenceCompat
             app:key="terminal_margin_adjustment"
             app:summaryOff="@string/termux_terminal_view_terminal_margin_adjustment_off"
             app:summaryOn="@string/termux_terminal_view_terminal_margin_adjustment_on"
             app:title="@string/termux_terminal_view_terminal_margin_adjustment_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="wallpaper"
+        app:title="@string/termux_terminal_view_wallpaper_header">
 
         <SeekBarPreference
             app:key="background_overlay_opacity"
