@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Keep;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SeekBarPreference;
 
@@ -43,6 +44,16 @@ public class TerminalViewPreferencesFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
+
+        Preference restorePreference = findPreference("restore_background_overlay_opacity");
+        if (restorePreference != null) {
+            restorePreference.setOnPreferenceClickListener(preference -> {
+                TerminalViewPreferencesDataStore.getInstance(context)
+                    .resetBackgroundOverlayOpacity();
+                requireActivity().recreate();
+                return true;
+            });
+        }
     }
 }
 
@@ -63,6 +74,13 @@ class TerminalViewPreferencesDataStore extends PreferenceDataStore {
             mInstance = new TerminalViewPreferencesDataStore(context);
         }
         return mInstance;
+    }
+
+    public void resetBackgroundOverlayOpacity() {
+        if (mPreferences == null) return;
+
+        mPreferences.setBackgroundOverlayOpacity(-1);
+        TermuxActivity.updateTermuxActivityStyling(mContext, false);
     }
 
     @Override

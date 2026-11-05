@@ -9,4 +9,6 @@
     <string name="title_restore_background_image">Deseja restaurar a imagem de fundo anterior?</string>
     <string name="termux_terminal_view_background_overlay_opacity_title">Intensidade do escurecimento do papel de parede</string>
     <string name="termux_terminal_view_background_overlay_opacity_summary">%1$d%% — Ajuste o escurecimento do papel de parede.</string>
+    <string name="termux_terminal_view_background_overlay_opacity_restore_title">Restaurar opacidade padrão</string>
+    <string name="termux_terminal_view_background_overlay_opacity_restore_summary">Usar a opacidade definida em termux.properties.</string>
 </resources>

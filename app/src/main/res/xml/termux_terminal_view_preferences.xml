@@ -19,6 +19,11 @@
             app:defaultValue="35"
             app:showSeekBarValue="true" />
 
+        <Preference
+            app:key="restore_background_overlay_opacity"
+            app:title="@string/termux_terminal_view_background_overlay_opacity_restore_title"
+            app:summary="@string/termux_terminal_view_background_overlay_opacity_restore_summary" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
