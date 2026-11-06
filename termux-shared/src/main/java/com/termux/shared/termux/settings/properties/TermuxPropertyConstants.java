@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import com.termux.shared.data.DataUtils;
 
 /*
  * Version: v0.18.0
@@ -254,6 +255,11 @@ public final class TermuxPropertyConstants {
     public static final int DEFAULT_IVALUE_TERMINAL_TRANSCRIPT_ROWS = TerminalEmulator.DEFAULT_TERMINAL_TRANSCRIPT_ROWS;
 
 
+    /** Defines the key for the terminal background image overlay color */
+    public static final String KEY_BACKGROUND_OVERLAY_COLOR = "background-overlay-color";
+    public static final int DEFAULT_IVALUE_BACKGROUND_OVERLAY_COLOR = 0x59000000;
+
+
 
 
 
@@ -413,6 +419,7 @@ public final class TermuxPropertyConstants {
         KEY_TERMINAL_MARGIN_HORIZONTAL,
         KEY_TERMINAL_MARGIN_VERTICAL,
         KEY_TERMINAL_TRANSCRIPT_ROWS,
+        KEY_BACKGROUND_OVERLAY_COLOR,
 
         /* float */
         KEY_TERMINAL_TOOLBAR_HEIGHT_SCALE_FACTOR,

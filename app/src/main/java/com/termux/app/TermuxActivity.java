@@ -1,5 +1,6 @@
 package com.termux.app;
 
+import com.termux.app.style.TermuxBackgroundManager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -16,6 +17,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.SubMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +110,10 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
      */
     private TermuxAppSharedPreferences mPreferences;
 
+/**
+ * Manages terminal background images.
+ */
+private TermuxBackgroundManager mTermuxBackgroundManager;
     /**
      * Termux app SharedProperties loaded from termux.properties
      */
@@ -184,6 +190,10 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     private static final int CONTEXT_MENU_RESET_TERMINAL_ID = 3;
     private static final int CONTEXT_MENU_KILL_PROCESS_ID = 4;
     private static final int CONTEXT_MENU_STYLING_ID = 5;
+
+    private static final int CONTEXT_SUBMENU_FONT_AND_COLOR_ID = 12;
+private static final int CONTEXT_SUBMENU_SET_BACKGROUND_IMAGE_ID = 13;
+private static final int CONTEXT_SUBMENU_REMOVE_BACKGROUND_IMAGE_ID = 14;
     private static final int CONTEXT_MENU_TOGGLE_KEEP_SCREEN_ON = 6;
     private static final int CONTEXT_MENU_HELP_ID = 7;
     private static final int CONTEXT_MENU_SETTINGS_ID = 8;
@@ -224,6 +234,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             return;
         }
 
+mTermuxBackgroundManager = new TermuxBackgroundManager(this);
         setMargins();
 
         mTermuxActivityRootView = findViewById(R.id.activity_termux_root_view);
@@ -295,6 +306,14 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         if (mTermuxTerminalViewClient != null)
             mTermuxTerminalViewClient.onStart();
 
+if (mTermuxBackgroundManager != null) {
+    mTermuxBackgroundManager.updateBackground(false);
+}
+
+        configureMonetBackground();
+        configureSessionsBlur();
+        configureExtraKeysBackground();
+
         if (mPreferences.isTerminalMarginAdjustmentEnabled())
             addTermuxActivityRootViewGlobalLayoutListener();
 
@@ -319,7 +338,58 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         // notification with the crash details if it did
         TermuxCrashUtils.notifyAppCrashFromCrashLogFile(this, LOG_TAG);
 
+        if (mTermuxBackgroundManager != null) {
+            mTermuxBackgroundManager.updateBackground(true);
+        }
+
+        configureMonetBackground();
+        configureSessionsBlur();
+        configureExtraKeysBackground();
+
         mIsOnResumeAfterOnCreate = false;
+    }
+
+    private void configureMonetBackground() {
+        View monetBackground = findViewById(R.id.terminal_monetbackground);
+        if (monetBackground != null && mPreferences != null) {
+            monetBackground.setVisibility(
+                mPreferences.isMonetBackgroundEnabled() ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void configureSessionsBlur() {
+        configureBackgroundBlur(
+            R.id.sessions_backgroundblur,
+            R.id.sessions_background,
+            mPreferences.isSessionsBlurEnabled(),
+            0.5f
+        );
+    }
+
+    private void configureBackgroundBlur(int blurViewId, int backgroundViewId,
+                                         boolean enabled, float alphaWhenBlurred) {
+        View blurView = findViewById(blurViewId);
+        View backgroundView = findViewById(backgroundViewId);
+
+        if (blurView != null)
+            blurView.setVisibility(enabled ? View.VISIBLE : View.GONE);
+
+        if (backgroundView != null)
+            backgroundView.setAlpha(enabled ? alphaWhenBlurred : 1.0f);
+    }
+
+    private void configureExtraKeysBackground() {
+        View background = findViewById(R.id.extrakeys_background);
+        View blur = findViewById(R.id.extrakeys_backgroundblur);
+        if (background == null || blur == null || mPreferences == null)
+            return;
+
+        boolean showToolbar = mPreferences.shouldShowTerminalToolbar();
+        boolean blurEnabled = mPreferences.isExtraKeysBlurEnabled();
+
+        background.setVisibility(showToolbar ? View.VISIBLE : View.GONE);
+        blur.setVisibility(showToolbar && blurEnabled ? View.VISIBLE : View.GONE);
+        background.setAlpha(blurEnabled ? 0.40f : 1.0f);
     }
 
     @Override
@@ -350,6 +420,10 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         Logger.logDebug(LOG_TAG, "onDestroy");
 
+    if (mTermuxBackgroundManager != null) {
+    mTermuxBackgroundManager.shutdown();
+    mTermuxBackgroundManager = null;
+}
         if (mIsInvalidState) return;
 
         if (mTermuxService != null) {
@@ -536,6 +610,19 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             (mTermuxTerminalExtraKeys.getExtraKeysInfo() == null ? 0 : mTermuxTerminalExtraKeys.getExtraKeysInfo().getMatrix().length) *
             mProperties.getTerminalToolbarHeightScaleFactor());
         terminalToolbarViewPager.setLayoutParams(layoutParams);
+
+        View extraKeysBackground = findViewById(R.id.extrakeys_background);
+        View extraKeysBlur = findViewById(R.id.extrakeys_backgroundblur);
+        if (extraKeysBackground != null) {
+            ViewGroup.LayoutParams backgroundParams = extraKeysBackground.getLayoutParams();
+            backgroundParams.height = layoutParams.height;
+            extraKeysBackground.setLayoutParams(backgroundParams);
+        }
+        if (extraKeysBlur != null) {
+            ViewGroup.LayoutParams blurParams = extraKeysBlur.getLayoutParams();
+            blurParams.height = layoutParams.height;
+            extraKeysBlur.setLayoutParams(blurParams);
+        }
     }
 
     public void toggleTerminalToolbar() {
@@ -545,6 +632,7 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         final boolean showNow = mPreferences.toogleShowTerminalToolbar();
         Logger.showToast(this, (showNow ? getString(R.string.msg_enabling_terminal_toolbar) : getString(R.string.msg_disabling_terminal_toolbar)), true);
         terminalToolbarViewPager.setVisibility(showNow ? View.VISIBLE : View.GONE);
+        configureExtraKeysBackground();
         if (showNow && isTerminalToolbarTextInputViewSelected()) {
             // Focus the text input view if just revealed.
             findViewById(R.id.terminal_toolbar_text_input).requestFocus();
@@ -643,7 +731,35 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
             menu.add(Menu.NONE, CONTEXT_MENU_AUTOFILL_PASSWORD, Menu.NONE, R.string.action_autofill_password);
         menu.add(Menu.NONE, CONTEXT_MENU_RESET_TERMINAL_ID, Menu.NONE, R.string.action_reset_terminal);
         menu.add(Menu.NONE, CONTEXT_MENU_KILL_PROCESS_ID, Menu.NONE, getResources().getString(R.string.action_kill_process, getCurrentSession().getPid())).setEnabled(currentSession.isRunning());
-        menu.add(Menu.NONE, CONTEXT_MENU_STYLING_ID, Menu.NONE, R.string.action_style_terminal);
+        SubMenu stylingSubMenu = menu.addSubMenu(
+    Menu.NONE,
+    CONTEXT_MENU_STYLING_ID,
+    Menu.NONE,
+    R.string.action_style_terminal
+);
+
+stylingSubMenu.clearHeader();
+
+stylingSubMenu.add(
+    Menu.NONE,
+    CONTEXT_SUBMENU_FONT_AND_COLOR_ID,
+    Menu.NONE,
+    R.string.action_font_and_color
+);
+
+stylingSubMenu.add(
+    Menu.NONE,
+    CONTEXT_SUBMENU_SET_BACKGROUND_IMAGE_ID,
+    Menu.NONE,
+    R.string.action_set_background_image
+);
+
+stylingSubMenu.add(
+    Menu.NONE,
+    CONTEXT_SUBMENU_REMOVE_BACKGROUND_IMAGE_ID,
+    Menu.NONE,
+    R.string.action_remove_background_image
+);
         menu.add(Menu.NONE, CONTEXT_MENU_TOGGLE_KEEP_SCREEN_ON, Menu.NONE, R.string.action_toggle_keep_screen_on).setCheckable(true).setChecked(mPreferences.shouldKeepScreenOn());
         menu.add(Menu.NONE, CONTEXT_MENU_HELP_ID, Menu.NONE, R.string.action_open_help);
         menu.add(Menu.NONE, CONTEXT_MENU_SETTINGS_ID, Menu.NONE, R.string.action_open_settings);
@@ -684,8 +800,21 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
                 showKillSessionDialog(session);
                 return true;
             case CONTEXT_MENU_STYLING_ID:
-                showStylingDialog();
-                return true;
+case CONTEXT_SUBMENU_FONT_AND_COLOR_ID:
+    showStylingDialog();
+    return true;
+
+case CONTEXT_SUBMENU_SET_BACKGROUND_IMAGE_ID:
+    if (mTermuxBackgroundManager != null) {
+        mTermuxBackgroundManager.setBackgroundImage();
+    }
+    return true;
+
+case CONTEXT_SUBMENU_REMOVE_BACKGROUND_IMAGE_ID:
+    if (mTermuxBackgroundManager != null) {
+        mTermuxBackgroundManager.removeBackgroundImage(true);
+    }
+    return true;
             case CONTEXT_MENU_TOGGLE_KEEP_SCREEN_ON:
                 toggleKeepScreenOn();
                 return true;
@@ -867,7 +996,15 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         return mIsOnResumeAfterOnCreate;
     }
 
-    public boolean isActivityRecreated() {
+    @Override
+public void onConfigurationChanged(android.content.res.Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+
+    if (mTermuxBackgroundManager != null) {
+        mTermuxBackgroundManager.updateBackground(true);
+    }
+}
+public boolean isActivityRecreated() {
         return mIsActivityRecreated;
     }
 

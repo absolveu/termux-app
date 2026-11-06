@@ -37,4 +37,22 @@
         <item name="extraKeysButtonActiveBackgroundColor">@color/grey_500</item>
     </style>
 
+
+    <!-- Dynamic colors scoped to SettingsActivity. -->
+    <style name="Theme.TermuxSettings.DayNight.NoActionBar"
+        parent="Theme.TermuxApp.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/termux_settings_primary</item>
+        <item name="colorPrimaryVariant">@color/termux_settings_primary_variant</item>
+        <item name="colorOnPrimary">@color/termux_settings_on_primary</item>
+        <item name="colorPrimaryDark">@color/termux_settings_primary</item>
+        <item name="colorSecondary">@color/termux_settings_secondary</item>
+        <item name="colorSecondaryVariant">@color/termux_settings_secondary_variant</item>
+        <item name="colorOnSecondary">@color/termux_settings_on_secondary</item>
+
+        <!-- Material You control colors. -->
+        <item name="colorAccent">@color/termux_settings_secondary</item>
+        <item name="colorControlActivated">@color/termux_settings_secondary</item>
+        <item name="colorControlNormal">@color/termux_settings_secondary_variant</item>
+    </style>
+
 </resources>

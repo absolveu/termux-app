@@ -675,6 +675,26 @@ public final class TermuxConstants {
     /** Termux app data home directory */
     public static final File TERMUX_DATA_HOME_DIR = new File(TERMUX_DATA_HOME_DIR_PATH);
 
+    /** Termux app background images directory path */
+    public static final String TERMUX_BACKGROUND_DIR_PATH = TERMUX_DATA_HOME_DIR_PATH + "/background";
+    /** Termux app background images directory */
+    public static final File TERMUX_BACKGROUND_DIR = new File(TERMUX_BACKGROUND_DIR_PATH);
+
+    /** Original background image path */
+    public static final String TERMUX_BACKGROUND_IMAGE_PATH = TERMUX_BACKGROUND_DIR_PATH + "/background.jpeg";
+    /** Original background image file */
+    public static final File TERMUX_BACKGROUND_IMAGE_FILE = new File(TERMUX_BACKGROUND_IMAGE_PATH);
+
+    /** Portrait background image path */
+    public static final String TERMUX_BACKGROUND_IMAGE_PORTRAIT_PATH = TERMUX_BACKGROUND_DIR_PATH + "/background_portrait.jpeg";
+    /** Portrait background image file */
+    public static final File TERMUX_BACKGROUND_IMAGE_PORTRAIT_FILE = new File(TERMUX_BACKGROUND_IMAGE_PORTRAIT_PATH);
+
+    /** Landscape background image path */
+    public static final String TERMUX_BACKGROUND_IMAGE_LANDSCAPE_PATH = TERMUX_BACKGROUND_DIR_PATH + "/background_landscape.jpeg";
+    /** Landscape background image file */
+    public static final File TERMUX_BACKGROUND_IMAGE_LANDSCAPE_FILE = new File(TERMUX_BACKGROUND_IMAGE_LANDSCAPE_PATH);
+
 
     /** Termux app storage home directory path */
     public static final String TERMUX_STORAGE_HOME_DIR_PATH = TERMUX_HOME_DIR_PATH + "/storage"; // Default: "/data/data/com.termux/files/home/storage"
