@@ -389,7 +389,7 @@ if (mTermuxBackgroundManager != null) {
 
         background.setVisibility(showToolbar ? View.VISIBLE : View.GONE);
         blur.setVisibility(showToolbar && blurEnabled ? View.VISIBLE : View.GONE);
-        background.setAlpha(blurEnabled ? 0.80f : 1.0f);
+        background.setAlpha(blurEnabled ? 0.40f : 1.0f);
     }
 
     @Override
