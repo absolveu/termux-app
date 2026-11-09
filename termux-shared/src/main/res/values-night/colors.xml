@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="termux_settings_primary">@color/red_400</color>
+    <color name="termux_settings_primary_variant">@color/red_800</color>
+    <color name="termux_settings_on_primary">@color/black</color>
+    <color name="termux_settings_secondary">@color/grey_400</color>
+    <color name="termux_settings_secondary_variant">@color/grey_500</color>
+    <color name="termux_settings_on_secondary">@color/black</color>
+</resources>

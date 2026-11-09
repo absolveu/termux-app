@@ -1,0 +1,6 @@
+RealtimeBlurView
+Copyright 2016 Tu Yimin (http://github.com/mmin18)
+
+Source: https://github.com/mmin18/RealtimeBlurView
+Licensed under the Apache License, Version 2.0.
+See RealtimeBlurView-LICENSE in this directory.

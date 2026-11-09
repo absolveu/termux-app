@@ -233,6 +233,67 @@ public class TermuxAppSharedPreferences extends AppSharedPreferences {
     }
 
 
+    public boolean isBackgroundImageEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences, TERMUX_APP.KEY_BACKGROUND_IMAGE_ENABLED,
+            TERMUX_APP.DEFAULT_VALUE_BACKGROUND_IMAGE_ENABLED);
+    }
+
+    public void setBackgroundImageEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences, TERMUX_APP.KEY_BACKGROUND_IMAGE_ENABLED, value, false);
+    }
+
+    public boolean isMonetBackgroundEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_MONET_BACKGROUND_ENABLED, TERMUX_APP.DEFAULT_VALUE_MONET_BACKGROUND_ENABLED);
+    }
+
+    public void setMonetBackgroundEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_MONET_BACKGROUND_ENABLED, value, false);
+    }
+
+    public boolean isExtraKeysBlurEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_EXTRAKEYS_BLUR_ENABLED, TERMUX_APP.DEFAULT_VALUE_EXTRAKEYS_BLUR_ENABLED);
+    }
+
+    public void setExtraKeysBlurEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_EXTRAKEYS_BLUR_ENABLED, value, false);
+    }
+
+    public boolean isSessionsBlurEnabled() {
+        return SharedPreferenceUtils.getBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_SESSIONS_BLUR_ENABLED, TERMUX_APP.DEFAULT_VALUE_SESSIONS_BLUR_ENABLED);
+    }
+
+    public void setSessionsBlurEnabled(boolean value) {
+        SharedPreferenceUtils.setBoolean(mSharedPreferences,
+            TERMUX_APP.KEY_SESSIONS_BLUR_ENABLED, value, false);
+    }
+
+    /**
+     * Get custom terminal background overlay opacity.
+     *
+     * @return The opacity percentage, or -1 to use termux.properties.
+     */
+    public int getBackgroundOverlayOpacity() {
+        return SharedPreferenceUtils.getInt(mSharedPreferences,
+            TERMUX_APP.KEY_BACKGROUND_OVERLAY_OPACITY,
+            TERMUX_APP.DEFAULT_BACKGROUND_OVERLAY_OPACITY);
+    }
+
+    /**
+     * Set custom terminal background overlay opacity.
+     *
+     * @param value The opacity percentage, or -1 to use termux.properties.
+     */
+    public void setBackgroundOverlayOpacity(int value) {
+        SharedPreferenceUtils.setInt(mSharedPreferences,
+            TERMUX_APP.KEY_BACKGROUND_OVERLAY_OPACITY, value, false);
+    }
+
+
 
     public boolean arePluginErrorNotificationsEnabled(boolean readFromFile) {
         if (readFromFile)

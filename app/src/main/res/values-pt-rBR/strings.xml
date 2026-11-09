@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_font_and_color">Fonte e cores</string>
+    <string name="action_set_background_image">Definir imagem de fundo</string>
+    <string name="action_remove_background_image">Remover imagem de fundo</string>
+
+    <string name="error_background_image_loading_from_gallery_failed">Falha ao carregar a imagem de fundo da galeria.</string>
+    <string name="error_background_image_loading_failed">Falha ao carregar a imagem de fundo.</string>
+    <string name="title_restore_background_image">Deseja restaurar a imagem de fundo anterior?</string>
+    <string name="termux_terminal_view_background_overlay_opacity_title">Intensidade do escurecimento do papel de parede</string>
+    <string name="termux_terminal_view_background_overlay_opacity_summary">%1$d%% — Ajuste o escurecimento do papel de parede.</string>
+    <string name="termux_terminal_view_background_overlay_opacity_restore_title">Restaurar opacidade padrão</string>
+    <string name="termux_terminal_view_background_overlay_opacity_restore_summary">Usar a opacidade definida em termux.properties.</string>
+    <string name="title_background_image_preview">Prévia do papel de parede</string>
+    <string name="action_apply_background_image">Aplicar</string>
+    <string name="termux_terminal_view_terminal_header">Terminal</string>
+    <string name="termux_terminal_view_wallpaper_header">Papel de parede</string>
+    <string name="termux_appearance_preferences_title">Aparência</string>
+    <string name="termux_appearance_preferences_summary">Personalize o fundo e a aparência do terminal.</string>
+    <string name="termux_appearance_background_header">Plano de fundo</string>
+    <string name="termux_monet_background_enabled_title">Fundo Monet</string>
+    <string name="termux_monet_background_enabled_off">O fundo Monet atrás do terminal está desativado.</string>
+    <string name="termux_monet_background_enabled_on">O fundo Monet atrás do terminal está ativado.</string>
+    <string name="termux_appearance_blur_header">Desfoque do fundo</string>
+    <string name="termux_extrakeys_blur_enabled_title">Desfoque do fundo das Extra Keys</string>
+    <string name="termux_extrakeys_blur_enabled_off">Exibe um fundo sólido atrás da barra Extra Keys.</string>
+    <string name="termux_extrakeys_blur_enabled_on">Aplica desfoque ao fundo da barra Extra Keys.</string>
+    <string name="termux_sessions_blur_enabled_title">Desfoque do fundo do menu de sessões</string>
+    <string name="termux_sessions_blur_enabled_off">Exibe um fundo sólido atrás do menu de sessões.</string>
+    <string name="termux_sessions_blur_enabled_on">Aplica desfoque ao fundo do menu de sessões.</string>
+</resources>

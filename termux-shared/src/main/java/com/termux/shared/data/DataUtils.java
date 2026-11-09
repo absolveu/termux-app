@@ -1,5 +1,7 @@
+
 package com.termux.shared.data;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -145,8 +147,6 @@ public class DataUtils {
         return getIntFromString(bundle.getString(key, Integer.toString(def)), def);
     }
 
-
-
     /**
      * If value is not in the range [min, max], set it to either min or max.
      */
@@ -163,8 +163,6 @@ public class DataUtils {
         else
             return value;
     }
-
-
 
     /**
      * Add a space indent to a {@link String}. Each indent is 4 space characters long.
@@ -209,8 +207,6 @@ public class DataUtils {
             return string.replaceAll("(?m)^", Strings.repeat(indent, Math.max(count, 1)));
     }
 
-
-
     /**
      * Get the object itself if it is not {@code null}, otherwise default.
      *
@@ -225,8 +221,8 @@ public class DataUtils {
     /**
      * Get the {@link String} itself if it is not {@code null} or empty, otherwise default.
      *
-     * @param value The {@link String} to check.
-     * @param def The default {@link String}.
+     * @param value The {@link String} value.
+     * @param def The default {@link String} value.
      * @return Returns {@code value} if it is not {@code null} or empty, otherwise returns {@code def}.
      */
     public static String getDefaultIfUnset(@Nullable String value, String def) {
@@ -237,8 +233,6 @@ public class DataUtils {
     public static boolean isNullOrEmpty(String string) {
         return string == null || string.isEmpty();
     }
-
-
 
     /** Get size of a serializable object. */
     public static long getSerializedSize(Serializable object) {
@@ -255,4 +249,39 @@ public class DataUtils {
         }
     }
 
+    /**
+     * Wrapper for {@link #getIntColorFromString(String, int, boolean)} with setAlpha false.
+     */
+    public static int getIntColorFromString(String value, int def) {
+        if (value == null)
+            return def;
+        try {
+            return Color.parseColor(value);
+        } catch (Exception e) {
+            return def;
+        }
+    }
+
+    /**
+     * Get an int color from String with alpha value change.
+     *
+     * @param value The String value.
+     * @param def The default color if parsing fails.
+     * @param setAlpha Whether to use the default alpha when missing.
+     * @return The parsed color or the default color.
+     */
+    public static int getIntColorFromString(String value, int def, boolean setAlpha) {
+        if (value == null)
+            return def;
+        try {
+            int color = Color.parseColor(value);
+            if (setAlpha && value.length() == 7) {
+                // Use alpha value of def color and rgb value of given value.
+                color = (def & 0xff000000) | (color & 0x00ffffff);
+            }
+            return color;
+        } catch (Exception e) {
+            return def;
+        }
+    }
 }
