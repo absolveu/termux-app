@@ -1,6 +1,9 @@
-name: Build Monet (Manual)
+name: Build Monet
 
 on:
+  push:
+    branches:
+      - monet-wallpaper-port
   workflow_dispatch:
 
 permissions:
